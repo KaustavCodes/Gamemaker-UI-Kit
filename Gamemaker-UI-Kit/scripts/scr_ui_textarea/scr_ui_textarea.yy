@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_ui_textarea",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ui_textarea",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Ui-Kit/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
