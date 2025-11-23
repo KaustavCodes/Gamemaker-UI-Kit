@@ -1,54 +1,66 @@
-// scr_ui_button – FIXED VERSION
-function ui_add_button(_rel_x, _rel_y, _w, _h, _text, _callback, _label = "", _id = "", _panel = undefined) {
+// scr_ui_button.gml — FINAL PERFECT BUTTON
+function ui_button(_x, _y, _w, _h, _text, _callback, _id = "", _panel = undefined) {
     if (_panel == undefined) _panel = global.root_panel;
     else if (is_string(_panel)) _panel = ui_get_panel(_panel);
     
-    var b = {
-        x: _rel_x, y: _rel_y, width: _w, height: _h,
-        text: _text, label: _label,
+    var btn = {
+        x: _x,
+        y: _y,
+        width: _w,
+        height: _h,
+        text: _text,
         callback: _callback,
-        hovered: false, pressed: false,
-        visible: true, id: _id, panel: _panel
+        hovered: false,
+        pressed: false,
+        is_selected: false,
+        id: _id,
+        panel: _panel
     };
     
-    if (_id != "") global.ui_by_id[$ _id] = b;
-    array_push(_panel.elements, b);
-    array_push(global.ui_elements, b);
+    if (_id != "") global.ui_by_id[$ _id] = btn;
+    array_push(_panel.elements, btn);
+    array_push(global.ui_elements, btn);
     
-    // FIXED: Use local 'inst' instead of relying on 'self' argument
-    b.update = function(inst, px, py) {
+    btn.update = function(inst, px, py) {
         var ax = inst.x + px;
         var ay = inst.y + py;
         var mx = device_mouse_x_to_gui(0);
         var my = device_mouse_y_to_gui(0);
         
         inst.hovered = point_in_rectangle(mx, my, ax, ay, ax + inst.width, ay + inst.height);
+        inst.is_selected = inst.hovered;
         
         if (inst.hovered && mouse_check_button_pressed(mb_left)) {
             inst.pressed = true;
         }
-        if (inst.pressed && mouse_check_button_released(mb_left) && inst.hovered) {
+        
+        if (inst.pressed && mouse_check_button_released(mb_left)) {
             inst.pressed = false;
-            inst.callback();
+            if (inst.hovered) {
+                inst.callback();
+            }
         }
     };
     
-    b.draw = function(inst, px, py) {
+    btn.draw = function(inst, px, py) {
         var ax = inst.x + px;
         var ay = inst.y + py;
-        var col = inst.hovered ? c_ltgray : c_white;
-        draw_roundrect_color(ax, ay, ax + inst.width, ay + inst.height, col, col, false);
+        
+        // Background color based on state
+        var bg_col = c_white;
+        if (inst.pressed)      bg_col = c_dkgray;
+        else if (inst.hovered) bg_col = c_ltgray;
+        
+        draw_roundrect_color(ax, ay, ax + inst.width, ay + inst.height, bg_col, bg_col, false);
         draw_roundrect_color(ax, ay, ax + inst.width, ay + inst.height, c_black, c_black, true);
         
+        // Text
         draw_set_halign(fa_center);
         draw_set_valign(fa_middle);
         draw_text(ax + inst.width/2, ay + inst.height/2, inst.text);
-        
-        if (inst.label != "") {
-            draw_set_halign(fa_left);
-            draw_text(ax - string_width(inst.label) - 10, ay + inst.height/2 - 8, inst.label);
-        }
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
     };
     
-    return b;
+    return btn;
 }

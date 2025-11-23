@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_ui_slider",
+  "%Name":"scr_ui_label",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_ui_slider",
+  "name":"scr_ui_label",
   "parent":{
     "name":"Scripts",
     "path":"folders/Ui-Kit/Scripts.yy",

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_ui_checkbox",
+  "%Name":"scr_ui_toggle",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_ui_checkbox",
+  "name":"scr_ui_toggle",
   "parent":{
     "name":"Scripts",
     "path":"folders/Ui-Kit/Scripts.yy",

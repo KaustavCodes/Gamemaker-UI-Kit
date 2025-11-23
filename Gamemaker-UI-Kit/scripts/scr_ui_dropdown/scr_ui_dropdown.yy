@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_ui_core",
+  "%Name":"scr_ui_dropdown",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_ui_core",
+  "name":"scr_ui_dropdown",
   "parent":{
     "name":"Scripts",
     "path":"folders/Ui-Kit/Scripts.yy",
